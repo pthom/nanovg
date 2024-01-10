@@ -26,7 +26,9 @@
 #include "fontstash.h"
 
 #ifndef NVG_NO_STB
+#ifndef NANOVG_INSIDE_IMGUI_BUNDLE
 #define STB_IMAGE_IMPLEMENTATION
+#endif
 #include "stb_image.h"
 #endif
 

@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 project(nanovg)
+set(CMAKE_CXX_STANDARD 17)
 
 set(nanovg_dir ${CMAKE_CURRENT_LIST_DIR})
 file(GLOB nanovg_sources ${nanovg_dir}/src/*.c ${nanovg_dir}/src/*.h)
@@ -18,7 +19,7 @@ if(NANOVG_BUILD_EXAMPLES)
     endif()
 
     add_executable(nanovg_example_gl3
-        ${nanovg_dir}/example/example_gl3.c
+        ${nanovg_dir}/example/example_gl3_refac.cpp
         ${nanovg_dir}/example/demo.c
         ${nanovg_dir}/example/perf.c
     )

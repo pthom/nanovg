@@ -1,4 +1,5 @@
 #include "demo.h"
+#include "example_asset_path.h"
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
@@ -810,35 +811,49 @@ int loadDemoData(NVGcontext* vg, DemoData* data)
 		return -1;
 
 	for (i = 0; i < 12; i++) {
-		char file[128];
-		snprintf(file, 128, "../example/images/image%d.jpg", i+1);
-		data->images[i] = nvgCreateImage(vg, file, 0);
+		char file[256];
+		snprintf(file, 256, "%s/images/image%d.jpg", nvgExampleAssetPath(), i+1);
+        // snprintf(file, 128, "../example/images/image%d.jpg", i+1);
+        data->images[i] = nvgCreateImage(vg, file, 0);
 		if (data->images[i] == 0) {
 			printf("Could not load %s.\n", file);
 			return -1;
 		}
 	}
 
-	data->fontIcons = nvgCreateFont(vg, "icons", "../example/entypo.ttf");
+    char file[256];
+    snprintf(file, 256, "%s/entypo.ttf", nvgExampleAssetPath());
+	//data->fontIcons = nvgCreateFont(vg, "icons", "../example/entypo.ttf");
+    data->fontIcons = nvgCreateFont(vg, "icons", file);
 	if (data->fontIcons == -1) {
 		printf("Could not add font icons.\n");
 		return -1;
 	}
-	data->fontNormal = nvgCreateFont(vg, "sans", "../example/Roboto-Regular.ttf");
+
+    snprintf(file, 256, "%s/Roboto-Regular.ttf", nvgExampleAssetPath());
+    data->fontNormal = nvgCreateFont(vg, "sans", file);
+    //data->fontNormal = nvgCreateFont(vg, "sans", "../example/Roboto-Regular.ttf");
 	if (data->fontNormal == -1) {
 		printf("Could not add font italic.\n");
 		return -1;
 	}
-	data->fontBold = nvgCreateFont(vg, "sans-bold", "../example/Roboto-Bold.ttf");
+
+    snprintf(file, 256, "%s/Roboto-Bold.ttf", nvgExampleAssetPath());
+    data->fontBold = nvgCreateFont(vg, "sans-bold", file);
+    // data->fontBold = nvgCreateFont(vg, "sans-bold", "../example/Roboto-Bold.ttf");
 	if (data->fontBold == -1) {
 		printf("Could not add font bold.\n");
 		return -1;
 	}
-	data->fontEmoji = nvgCreateFont(vg, "emoji", "../example/NotoEmoji-Regular.ttf");
-	if (data->fontEmoji == -1) {
+
+    snprintf(file, 256, "%s/NotoEmoji-Regular.ttf", nvgExampleAssetPath());
+	data->fontEmoji = nvgCreateFont(vg, "emoji", file);
+    // data->fontEmoji = nvgCreateFont(vg, "emoji", "../example/NotoEmoji-Regular.ttf");
+    if (data->fontEmoji == -1) {
 		printf("Could not add font emoji.\n");
 		return -1;
 	}
+
 	nvgAddFallbackFontId(vg, data->fontNormal, data->fontEmoji);
 	nvgAddFallbackFontId(vg, data->fontBold, data->fontEmoji);
 

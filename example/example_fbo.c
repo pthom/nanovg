@@ -29,6 +29,7 @@
 #include "nanovg_gl.h"
 #include "nanovg_gl_utils.h"
 #include "perf.h"
+#include "example_asset_path.h"
 
 void renderPattern(NVGcontext* vg, NVGLUframebuffer* fb, float t, float pxRatio)
 {
@@ -73,12 +74,19 @@ void renderPattern(NVGcontext* vg, NVGLUframebuffer* fb, float t, float pxRatio)
 int loadFonts(NVGcontext* vg)
 {
 	int font;
-	font = nvgCreateFont(vg, "sans", "../example/Roboto-Regular.ttf");
+
+    char filename[1024];
+    snprintf(filename, sizeof(filename), "%s/Roboto-Regular.ttf", nvgExampleAssetPath());
+    font = nvgCreateFont(vg, "sans", filename);
+	//font = nvgCreateFont(vg, "sans", "../example/Roboto-Regular.ttf");
 	if (font == -1) {
 		printf("Could not add font regular.\n");
 		return -1;
 	}
-	font = nvgCreateFont(vg, "sans-bold", "../example/Roboto-Bold.ttf");
+
+    snprintf(filename, sizeof(filename), "%s/Roboto-Bold.ttf", nvgExampleAssetPath());
+    font = nvgCreateFont(vg, "sans-bold", filename);
+    //font = nvgCreateFont(vg, "sans-bold", "../example/Roboto-Bold.ttf");
 	if (font == -1) {
 		printf("Could not add font bold.\n");
 		return -1;

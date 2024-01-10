@@ -3,12 +3,15 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <stdlib.h>
 #ifdef NANOVG_GLEW
 #  include <GL/glew.h>
 #endif
 #include <GLFW/glfw3.h>
 #include "nanovg.h"
+#if !defined(NANOVG_INSIDE_IMGUI_BUNDLE)
 #define STB_IMAGE_WRITE_IMPLEMENTATION
+#endif
 #include "stb_image_write.h"
 
 

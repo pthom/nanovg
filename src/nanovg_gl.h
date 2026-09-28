@@ -837,7 +837,9 @@ static int glnvg__renderUpdateTexture(void* uptr, int image, int x, int y, int w
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT,1);
 
-#ifndef NANOVG_GLES2
+// [Bundle] Emscripten too: WebGL rejects the sub-rectangle upload with the skip and row length settings
+// ("ArrayBufferView not big enough for request"), which left the font atlas without its later glyphs.
+#if !defined(NANOVG_GLES2) && !defined(__EMSCRIPTEN__)
 	glPixelStorei(GL_UNPACK_ROW_LENGTH, tex->width);
 	glPixelStorei(GL_UNPACK_SKIP_PIXELS, x);
 	glPixelStorei(GL_UNPACK_SKIP_ROWS, y);
@@ -861,7 +863,7 @@ static int glnvg__renderUpdateTexture(void* uptr, int image, int x, int y, int w
 #endif
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
-#ifndef NANOVG_GLES2
+#if !defined(NANOVG_GLES2) && !defined(__EMSCRIPTEN__)
 	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 	glPixelStorei(GL_UNPACK_SKIP_PIXELS, 0);
 	glPixelStorei(GL_UNPACK_SKIP_ROWS, 0);
